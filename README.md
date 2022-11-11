@@ -17,7 +17,7 @@ System Status Monitoring-
 # Install & Upgrade
 
 ```
-bash <(curl -Ls https://raw.githubusercontent.com/vaxilu/x-ui/master/install.sh)
+bash <(curl -Ls https://raw.githubusercontent.com/blackestwhite/x-ui/master/install.sh)
 ```
 
 ## Manual install & upgrade
