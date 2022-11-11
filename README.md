@@ -102,7 +102,3 @@ Precautions:
 ## issue closed
 
 All kinds of small white problems see high blood pressure
-
-## Stargazers over time
-
-[![Stargazers over time](https://starchart.cc/blackestwhite/x-ui.svg)](https://starchart.cc/blackeswhite/x-ui)
