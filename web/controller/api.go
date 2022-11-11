@@ -60,7 +60,7 @@ func (a *APIController) initRouter(g *gin.RouterGroup) {
 	api := g.Group("/api")
 	api.Use(a.auth)
 
-	i := g.Group("/inbound")
+	i := api.Group("/inbound")
 	i.POST("/list", a.getInbounds)
 	i.POST("/add", a.addInbound)
 	i.POST("/del/:id", a.delInbound)
