@@ -102,6 +102,3 @@ Precautions:
 ## issue closed
 
 All kinds of small white problems see high blood pressure
-
-## note
-fuck actions
