@@ -21,6 +21,10 @@ func Auth(userService service.UserService, c *gin.Context) bool {
 	u := c.GetHeader("x-api-username")
 	p := c.GetHeader("x-api-password")
 
+	if u == "" || p == "" {
+		return false
+	}
+
 	user := userService.CheckUser(u, p)
 	timeStr := time.Now().Format("2006-01-02 15:04:05")
 	if user == nil {
