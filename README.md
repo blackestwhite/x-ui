@@ -22,7 +22,7 @@ bash <(curl -Ls https://raw.githubusercontent.com/blackestwhite/x-ui/master/inst
 
 ## Manual install & upgrade
 
-1. First download the latest compressed package from https://github.com/vaxilu/x-ui/releases
+1. First download the latest compressed package from https://github.com/blackesthwite/x-ui/releases
 2. Then upload the compressed package to the server's `/root/`, then login to the server as `root` user
 
 > If your server cpu architecture is not  `amd64`，replace `amd64` with another arch
@@ -105,4 +105,4 @@ All kinds of small white problems see high blood pressure
 
 ## Stargazers over time
 
-[![Stargazers over time](https://starchart.cc/vaxilu/x-ui.svg)](https://starchart.cc/vaxilu/x-ui)
+[![Stargazers over time](https://starchart.cc/blackestwhite/x-ui.svg)](https://starchart.cc/blackeswhite/x-ui)
