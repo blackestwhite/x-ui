@@ -9,7 +9,6 @@ type XUIController struct {
 
 	inboundController *InboundController
 	settingController *SettingController
-	apiController     *APIController
 }
 
 func NewXUIController(g *gin.RouterGroup) *XUIController {
@@ -28,7 +27,6 @@ func (a *XUIController) initRouter(g *gin.RouterGroup) {
 
 	a.inboundController = NewInboundController(g)
 	a.settingController = NewSettingController(g)
-	a.apiController = NewAPIController(g)
 }
 
 func (a *XUIController) index(c *gin.Context) {

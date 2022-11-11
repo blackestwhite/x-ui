@@ -2,13 +2,14 @@ package controller
 
 import (
 	"fmt"
-	"github.com/gin-gonic/gin"
 	"strconv"
 	"x-ui/database/model"
 	"x-ui/logger"
 	"x-ui/web/global"
 	"x-ui/web/service"
 	"x-ui/web/session"
+
+	"github.com/gin-gonic/gin"
 )
 
 type InboundController struct {
