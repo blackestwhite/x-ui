@@ -3,48 +3,36 @@ package controller
 import (
 	"fmt"
 	"strconv"
+	"time"
 	"x-ui/database/model"
+	"x-ui/logger"
+	"x-ui/web/job"
 	"x-ui/web/service"
-	"x-ui/web/session"
 
 	"github.com/gin-gonic/gin"
 )
 
 type APIController struct {
-	userService    service.UserService
 	inboundService service.InboundService
 	xrayService    service.XrayService
 }
 
-func (a *APIController) auth(c *gin.Context) {
-	// u := c.GetHeader("x-api-username")
-	// p := c.GetHeader("x-api-password")
+func Auth(userService service.UserService, c *gin.Context) bool {
+	u := c.GetHeader("x-api-username")
+	p := c.GetHeader("x-api-password")
 
-	// user := a.userService.CheckUser(u, p)
-	// timeStr := time.Now().Format("2006-01-02 15:04:05")
-	// if user == nil {
-	// 	job.NewStatsNotifyJob().UserLoginNotify(u, getRemoteIp(c), timeStr, 0)
-	// 	logger.Infof("wrong username or password: \"%s\" \"%s\"", u, p)
-	// 	c.JSON(501, gin.H{
-	// 		"message": "wrong username or password",
-	// 	})
-	// 	c.Abort()
-	// 	return
-	// } else {
-	// 	logger.Infof("%s login success,Ip Address:%s\n", u, getRemoteIp(c))
-	// 	job.NewStatsNotifyJob().UserLoginNotify(p, getRemoteIp(c), timeStr, 1)
-	// }
+	user := userService.CheckUser(u, p)
+	timeStr := time.Now().Format("2006-01-02 15:04:05")
+	if user == nil {
+		job.NewStatsNotifyJob().UserLoginNotify(u, getRemoteIp(c), timeStr, 0)
+		logger.Infof("wrong username or password: \"%s\" \"%s\"", u, p)
+		return false
+	}
 
-	// err := session.SetLoginUser(c, user)
-	// if err != nil {
-	// 	c.JSON(501, gin.H{
-	// 		"message": "couldn't set login user",
-	// 	})
-	// 	c.Abort()
-	// }
+	c.Set("API_USER", user)
 
-	// logger.Info("user", user.Id, "login success")
-	c.Next()
+	logger.Info("user", user.Id, "login success")
+	return true
 }
 
 func NewAPIController(g *gin.RouterGroup) *APIController {
@@ -55,7 +43,6 @@ func NewAPIController(g *gin.RouterGroup) *APIController {
 
 func (a *APIController) initRouter(g *gin.RouterGroup) {
 	api := g.Group("/api")
-	api.Use(a.auth)
 
 	i := api.Group("/inbound")
 	i.GET("/ping", a.ping)
@@ -72,7 +59,7 @@ func (a *APIController) ping(c *gin.Context) {
 }
 
 func (a *APIController) getInbounds(c *gin.Context) {
-	user := session.GetLoginUser(c)
+	user := c.MustGet("API_USER").(*model.User)
 	inbounds, err := a.inboundService.GetInbounds(user.Id)
 	if err != nil {
 		jsonMsg(c, "获取", err)
@@ -88,7 +75,7 @@ func (a *APIController) addInbound(c *gin.Context) {
 		jsonMsg(c, "添加", err)
 		return
 	}
-	user := session.GetLoginUser(c)
+	user := c.MustGet("API_USER").(*model.User)
 	inbound.UserId = user.Id
 	inbound.Enable = true
 	inbound.Tag = fmt.Sprintf("inbound-%v", inbound.Port)
