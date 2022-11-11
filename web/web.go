@@ -169,13 +169,14 @@ func (s *Server) initRouter() (*gin.Engine, error) {
 
 	store := cookie.NewStore(secret)
 
-	api := engine.Group("/api")
-	controller.NewAPIController(api)
-
 	engine.Use(sessions.Sessions("session", store))
 	engine.Use(func(c *gin.Context) {
 		c.Set("base_path", basePath)
 	})
+
+	api := engine.Group("/api")
+	controller.NewAPIController(api)
+
 	engine.Use(func(c *gin.Context) {
 		uri := c.Request.RequestURI
 		if strings.HasPrefix(uri, assetsBasePath) {

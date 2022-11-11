@@ -3,10 +3,7 @@ package controller
 import (
 	"fmt"
 	"strconv"
-	"time"
 	"x-ui/database/model"
-	"x-ui/logger"
-	"x-ui/web/job"
 	"x-ui/web/service"
 	"x-ui/web/session"
 
@@ -20,33 +17,33 @@ type APIController struct {
 }
 
 func (a *APIController) auth(c *gin.Context) {
-	u := c.GetHeader("x-api-username")
-	p := c.GetHeader("x-api-password")
+	// u := c.GetHeader("x-api-username")
+	// p := c.GetHeader("x-api-password")
 
-	user := a.userService.CheckUser(u, p)
-	timeStr := time.Now().Format("2006-01-02 15:04:05")
-	if user == nil {
-		job.NewStatsNotifyJob().UserLoginNotify(u, getRemoteIp(c), timeStr, 0)
-		logger.Infof("wrong username or password: \"%s\" \"%s\"", u, p)
-		c.JSON(501, gin.H{
-			"message": "wrong username or password",
-		})
-		c.Abort()
-		return
-	} else {
-		logger.Infof("%s login success,Ip Address:%s\n", u, getRemoteIp(c))
-		job.NewStatsNotifyJob().UserLoginNotify(p, getRemoteIp(c), timeStr, 1)
-	}
+	// user := a.userService.CheckUser(u, p)
+	// timeStr := time.Now().Format("2006-01-02 15:04:05")
+	// if user == nil {
+	// 	job.NewStatsNotifyJob().UserLoginNotify(u, getRemoteIp(c), timeStr, 0)
+	// 	logger.Infof("wrong username or password: \"%s\" \"%s\"", u, p)
+	// 	c.JSON(501, gin.H{
+	// 		"message": "wrong username or password",
+	// 	})
+	// 	c.Abort()
+	// 	return
+	// } else {
+	// 	logger.Infof("%s login success,Ip Address:%s\n", u, getRemoteIp(c))
+	// 	job.NewStatsNotifyJob().UserLoginNotify(p, getRemoteIp(c), timeStr, 1)
+	// }
 
-	err := session.SetLoginUser(c, user)
-	if err != nil {
-		c.JSON(501, gin.H{
-			"message": "couldn't set login user",
-		})
-		c.Abort()
-	}
+	// err := session.SetLoginUser(c, user)
+	// if err != nil {
+	// 	c.JSON(501, gin.H{
+	// 		"message": "couldn't set login user",
+	// 	})
+	// 	c.Abort()
+	// }
 
-	logger.Info("user", user.Id, "login success")
+	// logger.Info("user", user.Id, "login success")
 	c.Next()
 }
 
@@ -61,10 +58,17 @@ func (a *APIController) initRouter(g *gin.RouterGroup) {
 	api.Use(a.auth)
 
 	i := api.Group("/inbound")
+	i.GET("/ping", a.ping)
 	i.POST("/list", a.getInbounds)
 	i.POST("/add", a.addInbound)
 	i.POST("/del/:id", a.delInbound)
 	i.POST("/update/:id", a.updateInbound)
+}
+
+func (a *APIController) ping(c *gin.Context) {
+	c.JSON(200, gin.H{
+		"message": "pong",
+	})
 }
 
 func (a *APIController) getInbounds(c *gin.Context) {
