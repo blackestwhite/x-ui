@@ -42,7 +42,7 @@ else
     echo -e "${red}Failed to detect schema, use default schema:${arch}${plain}"
 fi
 
-echo "架构: ${arch}"
+echo "arch: ${arch}"
 
 if [ $(getconf WORD_BIT) != '32' ] && [ $(getconf LONG_BIT) != '64' ]; then
     echo "This software does not support 32-bit system (x86), please use 64-bit system (x86_64), if the detection is wrong, please contact the author"
@@ -170,6 +170,6 @@ install_x-ui() {
     echo -e "----------------------------------------------"
 }
 
-echo -e "${green}开始安装${plain}"
+echo -e "${green}start installation${plain}"
 install_base
 install_x-ui $1
