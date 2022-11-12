@@ -127,27 +127,27 @@ post body:
     "port": 6942,
     "protocol": "vmess",
     "settings": "{
-        \"clients\": [
+        "clients": [
             {
-                \"id\": \"uuid-v4-id-preferably\",
-                \"alterId\": 0,
+                "id": "uuid-v4-id-preferably",
+                "alterId": 0,
             }
         ],
-        \"disableInsecureEncryption\": false
+        "disableInsecureEncryption": false
     }",
     "streamSettings": "{
-        \"network\": \"ws\",
-        \"security\": \"none\",
-        \"wsSettings\": {
-            \"path\": \"/\",
-            \"headers\": {}
+        "network": "ws",
+        "security": "none",
+        "wsSettings": {
+            "path": "/",
+            "headers": {}
         }
     }",
     "sniffing": "{
-        \"enabled\": true,
-        \"destOverride\": [
-            \"http\",
-            \"tls\"
+        "enabled": true,
+        "destOverride": [
+            "http",
+            "tls"
         ]
     }"
 }
