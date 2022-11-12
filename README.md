@@ -112,3 +112,43 @@ available routes:
 - POST /xui/api/inbound/list
 - POST /xui/api/inbound/del/:id
 - POST /xui/api/inbound/update/:id
+
+### /xui/api/inbound/add
+post body:
+```json
+{
+    "up": 0,
+    "down": 0,
+    "total": 0,
+    "remark": "customer name",
+    "enable": true,
+    "expiryTime": 0,
+    "listen": null,
+    "port": 6942,
+    "protocol": "vmess",
+    "settings": "{
+        \"clients\": [
+            {
+                \"id\": \"uuid-v4-id-preferably\",
+                \"alterId\": 0,
+            }
+        ],
+        \"disableInsecureEncryption\": false
+    }",
+    "streamSettings": "{
+        \"network\": \"ws\",
+        \"security\": \"none\",
+        \"wsSettings\": {
+            \"path\": \"/\",
+            \"headers\": {}
+        }
+    }",
+    "sniffing": "{
+        \"enabled\": true,
+        \"destOverride\": [
+            \"http\",
+            \"tls\"
+        ]
+    }"
+}
+```
