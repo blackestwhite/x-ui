@@ -126,29 +126,8 @@ post body:
     "listen": null,
     "port": 6942,
     "protocol": "vmess",
-    "settings": "{
-        "clients": [
-            {
-                "id": "uuid-v4-id-preferably",
-                "alterId": 0,
-            }
-        ],
-        "disableInsecureEncryption": false
-    }",
-    "streamSettings": "{
-        "network": "ws",
-        "security": "none",
-        "wsSettings": {
-            "path": "/",
-            "headers": {}
-        }
-    }",
-    "sniffing": "{
-        "enabled": true,
-        "destOverride": [
-            "http",
-            "tls"
-        ]
-    }"
+    "settings": "{\"clients\": [{\"id\": \"uuid-v4-id-preferably\",\"alterId\": 0}],\"disableInsecureEncryption\": false}",
+    "streamSettings": "{\"network\": \"ws\",\"security\": \"none\",\"wsSettings\": {\"path\": \"/\",\"headers\": {}}}",
+    "sniffing": "{\"enabled\": true,\"destOverride\": [\"http\",\"tls\"]}"
 }
 ```
