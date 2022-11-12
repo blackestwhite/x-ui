@@ -102,3 +102,13 @@ Precautions:
 ## issue closed
 
 All kinds of small white problems see high blood pressure
+
+## API guide
+
+pass username in `x-api-username` and password in `x-api-password` headers.
+
+available routes:
+- POST /xui/api/inbound/add
+- POST /xui/api/inbound/list
+- POST /xui/api/inbound/del/:id
+- POST /xui/api/inbound/update/:id
